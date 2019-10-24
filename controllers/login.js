@@ -1,17 +1,19 @@
 var express = require('express');
-var usermodel = require('../model/user-model');
+var usermodel = require('../models/user-model');
 
 var router = express.Router();
 
 router.get('/', function(request, response){
-	res.render('login/index');
+	response.render('login/index');
 });
 
-router.post('/', function(request, response){
+router.post('/', function(request, response)
+{
 	if(request.body.submit)
 	{
 		response.redirect('/registration');
-	}else if(request.body.login)
+	}
+	else if(request.body.login)
 	{
 		var user = {
 			username: request.body.uname,
@@ -34,10 +36,11 @@ router.post('/', function(request, response){
 					response.redirect('/login');
 				}
 			}
+			else
+            {
+                response.redirect('/login');
+            }
 		});
-		else
-		{
-			response.redirect('/login');
-		}
-	});
+	}
+});
 module.exports = router;
